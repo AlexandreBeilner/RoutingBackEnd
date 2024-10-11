@@ -5,7 +5,8 @@ return [
             'GET' => [
                 'getUserRoutesAction',
                 'getRoutePointsAction',
-                'getNearbyRoutesAction'
+                'getNearbyRoutesAction',
+                'getRouteByRouteidAction'
             ],
             'POST' => [
                 'saveRouteAction'
@@ -15,6 +16,11 @@ return [
             ],
             'DELETE' => [
 
+            ]
+        ],
+        'Routing\Controller\UserController' => [
+            'GET' => [
+                'getUserConfigAction'
             ]
         ]
     ]

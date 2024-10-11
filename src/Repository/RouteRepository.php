@@ -3,7 +3,6 @@
 namespace Routing\Repository;
 
 use Routing\Core\Database\PostgresDB;
-use Routing\Repository\AbstractRepository;
 
 class RouteRepository extends AbstractRepository
 {

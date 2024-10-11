@@ -40,6 +40,13 @@ class RouterController extends AbstractController {
     {
         $data = $this->getData();
         $routerService = new RouterService();
-        return ['status' => 'true', 'response' => $routerService->getNearbyRoutes($data)];
+        return ['status' => 'true', 'response' => $routerService->getNearbyRoutesAndUserData($data)];
+    }
+
+    public function getRouteByRouteidAction(): array
+    {
+        $data = $this->getData();
+        $routerService = new RouterService();
+        return ['status' => 'true', 'response' => $routerService->getCompleteRouteByRouteID($data)];
     }
 }
