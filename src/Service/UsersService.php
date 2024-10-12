@@ -15,7 +15,7 @@ class UsersService
 
     public function getUserConfig($data): array
     {
-        $columns = 'iduser, name, isdriver, isdriver';
+        $columns = 'iduser, name, surname, isdriver, userimage';
         $where = [];
         $where[] = ['column' => 'iduser', 'operator' => '=', 'value' => $data['iduser'] ?? 0];
         return $this->usersRepository->getUserData($columns, $where);

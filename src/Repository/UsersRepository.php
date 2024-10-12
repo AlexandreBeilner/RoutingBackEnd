@@ -6,7 +6,7 @@ use Routing\Core\Database\PostgresDB;
 
 class UsersRepository extends AbstractRepository
 {
-    const string TABLE =  'users';
+    const TABLE =  'users';
 
     private PostgresDB $db;
 
