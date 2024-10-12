@@ -11,11 +11,13 @@ class RouterService
 {
     private RouteRepository $routeRepository;
     private RoutePointsRepository $routePointsRepository;
+    private GeocoderService $geocoderService;
 
     public function __construct()
     {
         $this->routePointsRepository = new RoutePointsRepository();
         $this->routeRepository = new RouteRepository();
+        $this->geocoderService = new GeocoderService();
     }
 
     /**
@@ -64,7 +66,8 @@ class RouterService
 
     public function getNearbyRoutesAndUserData($data): array
     {
-        $routes = $this->getNearbyRoutes($data);
+        $coordinates = $this->getCoordinate($data);
+        $routes = $this->getNearbyRoutes($data, $coordinates);
         $classDaysService = new ClassDaysService();
         foreach ($routes as $key => $route) {
             $routes[$key]['user'] = $classDaysService->getClassDaysByUserID($route['iduser']);
@@ -73,11 +76,19 @@ class RouterService
         return (new RouterHelper())->formatNearbyRoutesArray($routes);
     }
 
-    private function getNearbyRoutes($data): array
+    private function getCoordinate($data): array
+    {
+        if ($data['latitude'] != 0 && $data['longitude'] != 0) {
+            return ['latitude' => $data['latitude'], 'longitude' => $data['longitude']];
+        }
+
+        return $this->geocoderService->getCoordinatesByAddress($data['userID']);
+    }
+
+    private function getNearbyRoutes($data, $coordinates): array
     {
         $userID = $data['userID'] ?? 0;
         $maxDistance = $data['distance'];
-        $coordinates = ['latitude' => $data['latitude'] ?? 0, 'longitude' => $data['longitude'] ?? 0];
         $distance = $this->sqlToCalculateDistanceInMeters($coordinates);
 
         $subquery = "(SELECT route.idroute, MIN({$distance}) AS min_distance

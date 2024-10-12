@@ -11,14 +11,15 @@ class RouterHelper
             $results[] = [
                 'userID' => $route['iduser'],
                 'userName' => $route['user'][0]['name'],
+                'routeID' => $route['idroute'],
                 'distance' => round($route['distance'], 1) . ' Metros',
                 'classDays' => [
-                    ['name' => 'Seg', 'isGoing' => $route['user'][0]['monday']] ?? false,
-                    ['name' => 'Ter', 'isGoing' => $route['user'][0]['tuesday']] ?? false,
-                    ['name' => 'Qua', 'isGoing' => $route['user'][0]['wednesday']] ?? false,
-                    ['name' => 'Qui', 'isGoing' => $route['user'][0]['thursday']] ?? false,
-                    ['name' => 'Sex', 'isGoing' => $route['user'][0]['friday']] ?? false,
-                    ['name' => 'Sab', 'isGoing' => $route['user'][0]['saturday']] ?? false
+                    ['name' => 'Seg', 'isGoing' => $route['user'][0]['monday'] ?? false],
+                    ['name' => 'Ter', 'isGoing' => $route['user'][0]['tuesday'] ?? false],
+                    ['name' => 'Qua', 'isGoing' => $route['user'][0]['wednesday'] ?? false],
+                    ['name' => 'Qui', 'isGoing' => $route['user'][0]['thursday'] ?? false],
+                    ['name' => 'Sex', 'isGoing' => $route['user'][0]['friday'] ?? false],
+                    ['name' => 'Sab', 'isGoing' => $route['user'][0]['saturday'] ?? false]
                 ]
             ];
         }
