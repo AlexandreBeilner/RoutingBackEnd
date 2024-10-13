@@ -10,6 +10,6 @@ class UserController extends AbstractController
     {
         $data = $this->getData();
         $routerService = new UsersService();
-        return ['status' => $routerService->getUserConfig($data)];
+        return ['status' => true, 'response' => $routerService->getUserConfig($data)];
     }
 }
