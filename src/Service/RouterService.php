@@ -25,12 +25,14 @@ class RouterService
      */
     public function saveRoute($data): bool
     {
-        $response = $this->routeRepository->saveNewRoute($data['route']);
+        $userID = $data['userID'];
+        $routeName = $data['routeName'];
+        $response = $this->routeRepository->saveNewRoute(['iduser' => $userID, 'routename' => $routeName]);
         if (!$response) {
             throw new RouteExceptions(1);
         }
 
-        return $this->saveRoutePoints($data['routePoints'], $response);
+        return $this->saveRoutePoints($data['route'], $response);
     }
 
     /**
@@ -39,7 +41,8 @@ class RouterService
     public function saveRoutePoints($data, $routeID): bool
     {
         foreach ($data as $item) {
-            $response = $this->routePointsRepository->saveRoutePoints([...$item, 'idroute' => $routeID]);
+            $values = ['longitude' => $item['lng'], 'latitude' => $item['lat'], 'idroute' => $routeID];
+            $response = $this->routePointsRepository->saveRoutePoints($values);
             if (!$response['status']) {
                 throw new RouteExceptions(1);
             }
