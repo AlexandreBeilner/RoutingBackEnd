@@ -76,7 +76,7 @@ class RouterService
         return (new RouterHelper())->formatNearbyRoutesArray($routes);
     }
 
-    private function getCoordinate($data): array
+    private function getCoordinate($data): array | bool
     {
         if ($data['latitude'] != 0 && $data['longitude'] != 0) {
             return ['latitude' => $data['latitude'], 'longitude' => $data['longitude']];

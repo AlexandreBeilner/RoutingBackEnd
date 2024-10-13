@@ -15,16 +15,20 @@ class GeocoderService
         $this->addressRepository = new AddressRepository();
     }
 
-    public function getCoordinatesByAddress($userID)
+    public function getCoordinatesByAddress($userID): array | bool
     {
         $address = $this->addressRepository->getAddressByUserID($userID);
+        if (empty($address[0])) {
+            return false;
+        }
+
         $addressFormated = urlencode($this->formatAddressToGoogleAPI($address[0]));
         $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$addressFormated}&key={$this->googleAPIKEY}";
 
         $response = file_get_contents($url);
 
         if ($response === FALSE) {
-            return null;
+            return false;
         }
 
         $data = json_decode($response, true);
@@ -34,7 +38,7 @@ class GeocoderService
             return ['latitude' => $coordinates['lat'], 'longitude' => $coordinates['lng']];
         }
 
-        return null;
+        return false;
     }
 
     private function formatAddressToGoogleAPI($address): string

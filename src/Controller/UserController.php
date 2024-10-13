@@ -12,4 +12,11 @@ class UserController extends AbstractController
         $routerService = new UsersService();
         return ['status' => true, 'response' => $routerService->getUserConfig($data)];
     }
+
+    public function getCoordinatesByUserAddressAction()
+    {
+        $data = $this->getData();
+        $routerService = new UsersService();
+        return ['status' => true, 'response' => $routerService->getCoordinatesByUserAddress($data)];
+    }
 }

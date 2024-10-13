@@ -20,7 +20,8 @@ return [
         ],
         'Routing\Controller\UserController' => [
             'GET' => [
-                'getUserConfigAction'
+                'getUserConfigAction',
+                'getCoordinatesByUserAddressAction'
             ]
         ]
     ]
