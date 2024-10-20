@@ -24,4 +24,10 @@ class RoutePointsRepository extends AbstractRepository
     {
         return $this->db->select($columns, $where, $join, $having, $orderBy, $limit);
     }
+
+    public function deletePoints($routeID): bool
+    {
+        $where[] = ['column' => 'idroute', 'operator' => '=', 'value' => $routeID];
+        return $this->db->delete($where);
+    }
 }

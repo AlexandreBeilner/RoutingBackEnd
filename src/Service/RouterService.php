@@ -157,4 +157,12 @@ class RouterService
         $completeRoute = $this->routeRepository->getRoutes($columns, $where, $join);
         return (new RouterHelper())->formatCompleteRouteArray($completeRoute);
     }
+
+    public function deleteRoute($data): bool
+    {
+        $routeId = $data['routeID'];
+        $respRoutePoints = $this->routePointsRepository->deletePoints($routeId);
+        $respRoute = $this->routeRepository->deleteRoute($routeId);
+        return $respRoute && $respRoutePoints;
+    }
 }

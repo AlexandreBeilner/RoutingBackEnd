@@ -15,7 +15,7 @@ return [
 
             ],
             'DELETE' => [
-
+                'deleteRouteAction'
             ]
         ],
         'Routing\Controller\UserController' => [

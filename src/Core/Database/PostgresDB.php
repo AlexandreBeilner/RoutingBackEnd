@@ -81,11 +81,19 @@ class PostgresDB
         $stmt->execute(array_merge($values, [$id]));
     }
 
-    public function delete($id): void
+    public function delete($where): bool
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute([$id]);
+        $query = "DELETE FROM " . $this->table;
+
+        $query .= " WHERE ";
+        $conditions = [];
+        foreach ($where as $item) {
+            $conditions[] = "{$item['column']} {$item['operator']} {$item['value']}";
+        }
+        $query .= implode(' AND ', $conditions);
+
+        $stmt = $this->connection->prepare($query);
+        return $stmt->execute();
     }
 
     public function select(string $columns, array $where, array $join = [], string $having = '', string $orderBy = '', string $limit = '', $groupBy = ''): array

@@ -44,4 +44,11 @@ class RouterController extends AbstractController {
         $routerService = new RouterService();
         return ['status' => 'true', 'response' => $routerService->getCompleteRouteByRouteID($data)];
     }
+
+    public function deleteRouteAction(): array
+    {
+        $data = $this->getData();
+        $routerService = new RouterService();
+        return ['status' => $routerService->deleteRoute($data)];
+    }
 }

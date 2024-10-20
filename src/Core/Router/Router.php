@@ -47,7 +47,7 @@ class Router
 
     private function setData(): void
     {
-        if ($this->method === 'GET') {
+        if ($this->method === 'GET' || $this->method === 'DELETE') {
             $this->data = $this->getQueryParams();
         } else {
             $this->data = $this->getBody();
