@@ -56,7 +56,14 @@ class RouterService
         $columns = 'idroute, iduser, routename';
         $where = [];
         $where[] = ['column' => 'iduser', 'operator' => '=', 'value' => $data['iduser'] ?? 0];
-        return $this->routeRepository->getRoutes($columns, $where);
+        $userRoutes = $this->routeRepository->getRoutes($columns, $where);
+        if (count($userRoutes) === 0) {
+            return [];
+        }
+        foreach ($userRoutes as $key => $route) {
+            $userRoutes[$key]['routePoints'] = $this->getRoutePoints(['idroute' => $route['idroute']]);
+        }
+        return $userRoutes;
     }
 
     public function getRoutePoints($data): array
