@@ -36,7 +36,8 @@ class UsersService
     {
         $driverID = $data['driverID'];
         $riderID = $data['riderID'];
-        return $this->relationShipRepository->createRelation($driverID, $riderID);
+        $routeID = $data['routeID'];
+        return $this->relationShipRepository->createRelation($driverID, $riderID, $routeID);
     }
 
 }

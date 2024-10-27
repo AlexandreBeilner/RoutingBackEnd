@@ -16,8 +16,8 @@ class RelationshipRepository extends AbstractRepository
         $this->db = $this->getDb();
     }
 
-    public function createRelation($driverID, $riderID): bool | array
+    public function createRelation($driverID, $riderID, $routeID): bool | array
     {
-        return $this->db->insert(['driverid' => $driverID, 'riderid' => $riderID]);
+        return $this->db->insert(['driverid' => $driverID, 'riderid' => $riderID, 'idroute' => $routeID]);
     }
 }
