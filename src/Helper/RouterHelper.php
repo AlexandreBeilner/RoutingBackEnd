@@ -13,6 +13,7 @@ class RouterHelper
                 'userName' => $route['user'][0]['name'],
                 'routeID' => $route['idroute'],
                 'distance' => round($route['distance'], 1) . ' Metros',
+                'nearbyPoint' => ['lat' => $route['latitude'], 'lng' => $route['longitude']],
                 'classDays' => [
                     ['name' => 'Seg', 'isGoing' => $route['user'][0]['monday'] ?? false],
                     ['name' => 'Ter', 'isGoing' => $route['user'][0]['tuesday'] ?? false],

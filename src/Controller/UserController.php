@@ -19,4 +19,11 @@ class UserController extends AbstractController
         $routerService = new UsersService();
         return ['status' => true, 'response' => $routerService->getCoordinatesByUserAddress($data)];
     }
+
+    public function createRelationshipAction()
+    {
+        $data = $this->getData();
+        $userService = new UsersService();
+        return ['status' => $userService->createRelationship($data)];
+    }
 }

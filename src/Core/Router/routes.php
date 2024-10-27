@@ -22,6 +22,9 @@ return [
             'GET' => [
                 'getUserConfigAction',
                 'getCoordinatesByUserAddressAction'
+            ],
+            'POST' => [
+                'createRelationshipAction'
             ]
         ]
     ]
