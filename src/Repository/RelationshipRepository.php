@@ -16,14 +16,15 @@ class RelationshipRepository extends AbstractRepository
         $this->db = $this->getDb();
     }
 
-    public function createRelation($driverID, $riderID, $routeID): bool | array
+    public function createRelation($driverID, $riderID, $routeID, $latitude, $longitude): bool | array
     {
-        return $this->db->insert(['driverid' => $driverID, 'riderid' => $riderID, 'idroute' => $routeID]);
+        return $this->db->insert(['driverid' => $driverID, 'riderid' => $riderID, 'idroute' => $routeID, 'latitude' => $latitude, 'longitude' => $longitude]);
     }
 
     public function getRelationshipsByRouteAndDriverID($driverID, $routeID): array
     {
         $columns = 'relationship.idrelationship, relationship.driverid, relationship.riderid, relationship.amount, relationship.idroute,
+        relationship.latitude, relationship.longitude,
         users.name as riderName, users.surname as riderSurname, users.phone as riderPhone, users.userimage as riderImage';
 
         $where = [
