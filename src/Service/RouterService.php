@@ -4,6 +4,7 @@ namespace Routing\Service;
 
 use Routing\Exceptions\RouteExceptions;
 use Routing\Helper\RouterHelper;
+use Routing\Repository\RelationshipRepository;
 use Routing\Repository\RoutePointsRepository;
 use Routing\Repository\RouteRepository;
 
@@ -12,10 +13,12 @@ class RouterService
     private RouteRepository $routeRepository;
     private RoutePointsRepository $routePointsRepository;
     private GeocoderService $geocoderService;
+    private RelationshipRepository $relationshipRepository;
 
     public function __construct()
     {
         $this->routePointsRepository = new RoutePointsRepository();
+        $this->relationshipRepository = new RelationshipRepository();
         $this->routeRepository = new RouteRepository();
         $this->geocoderService = new GeocoderService();
     }
@@ -164,5 +167,13 @@ class RouterService
         $respRoutePoints = $this->routePointsRepository->deletePoints($routeId);
         $respRoute = $this->routeRepository->deleteRoute($routeId);
         return $respRoute && $respRoutePoints;
+    }
+
+    public function getRidersByRoute($data): array
+    {
+        $driverID = $data['driverID'];
+        $route = $data['routeID'];
+
+        return $this->relationshipRepository->getRelationshipsByRouteAndDriverID($driverID, $route);
     }
 }

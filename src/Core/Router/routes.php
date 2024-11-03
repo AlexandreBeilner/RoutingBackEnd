@@ -6,7 +6,8 @@ return [
                 'getUserRoutesAction',
                 'getRoutePointsAction',
                 'getNearbyRoutesAction',
-                'getRouteByRouteidAction'
+                'getRouteByRouteidAction',
+                'getRidersByRouteAction'
             ],
             'POST' => [
                 'saveRouteAction'
