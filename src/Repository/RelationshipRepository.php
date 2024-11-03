@@ -24,7 +24,7 @@ class RelationshipRepository extends AbstractRepository
     public function getRelationshipsByRouteAndDriverID($driverID, $routeID): array
     {
         $columns = 'relationship.idrelationship, relationship.driverid, relationship.riderid, relationship.amount, relationship.idroute,
-        users.name as riderName, users.surname as riderSurname, users.phone as riderPhone';
+        users.name as riderName, users.surname as riderSurname, users.phone as riderPhone, users.userimage as riderImage';
 
         $where = [
             ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
