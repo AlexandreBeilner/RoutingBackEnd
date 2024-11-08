@@ -42,4 +42,15 @@ class UsersService
         return $this->relationShipRepository->createRelation($driverID, $riderID, $routeID, $latitude, $longitude);
     }
 
+    public function getRelationships($data): array | bool
+    {
+        $where = [];
+        if (isset($data['driverID'])) {
+            $where[] = ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $data['driverID']];
+        } else if ($data['riderID']) {
+            $where[] = ['column' => 'relationship.riderid', 'operator' => '=', 'value' => $data['riderID']];
+        }
+        return $this->relationShipRepository->getRelationship($where);
+    }
+
 }

@@ -24,7 +24,8 @@ return [
         'Routing\Controller\UserController' => [
             'GET' => [
                 'getUserConfigAction',
-                'getCoordinatesByUserAddressAction'
+                'getCoordinatesByUserAddressAction',
+                'getUserRelationshipsAction'
             ],
             'POST' => [
                 'createRelationshipAction'

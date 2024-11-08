@@ -56,5 +56,9 @@ class RelationshipRepository extends AbstractRepository
         return $this->db->select($columns, $where);
     }
 
-
+    public function getRelationship($where)
+    {
+        $columns = '*';
+        return $this->db->select($columns, $where);
+    }
 }

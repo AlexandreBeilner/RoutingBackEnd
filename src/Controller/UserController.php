@@ -26,4 +26,11 @@ class UserController extends AbstractController
         $userService = new UsersService();
         return $userService->createRelationship($data);
     }
+
+    public function getUserRelationshipsAction()
+    {
+        $data = $this->getData();
+        $userService = new UsersService();
+        return ['status' => true, 'response' => $userService->getRelationships($data)];
+    }
 }
