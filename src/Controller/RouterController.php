@@ -59,4 +59,18 @@ class RouterController extends AbstractController {
         return ['status' => true, 'response' => $routerService->getRidersByRoute($data)];
     }
 
+    public function setRunningStatusAction()
+    {
+        $data = $this->getData();
+        $routerService = new RouterService();
+        return ['status' => true, 'response' => $routerService->setRunningStatus($data)];
+    }
+
+    public function getRunningStatusAction()
+    {
+        $data = $this->getData();
+        $routerService = new RouterService();
+        return ['status' => true, 'response' => $routerService->getRunningStatus($data)];
+    }
+
 }

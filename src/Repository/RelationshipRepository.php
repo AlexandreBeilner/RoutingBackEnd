@@ -38,4 +38,23 @@ class RelationshipRepository extends AbstractRepository
 
         return $this->db->select($columns, $where, $join);
     }
+
+    public function setRunningStatus($routeID, $driverID, $status): bool
+    {
+        $fields = ['isrunning'];
+        $values = [$status];
+        $where = [
+            ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
+            ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeID]
+        ];
+        return $this->db->update($fields, $values, $where);
+    }
+
+    public function getRunningStatus($where): bool | array
+    {
+        $columns = 'isrunning';
+        return $this->db->select($columns, $where);
+    }
+
+
 }

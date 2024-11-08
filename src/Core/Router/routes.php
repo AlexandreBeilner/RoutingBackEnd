@@ -7,10 +7,12 @@ return [
                 'getRoutePointsAction',
                 'getNearbyRoutesAction',
                 'getRouteByRouteidAction',
-                'getRidersByRouteAction'
+                'getRidersByRouteAction',
+                'getRunningStatusAction'
             ],
             'POST' => [
-                'saveRouteAction'
+                'saveRouteAction',
+                'setRunningStatusAction'
             ],
             'PUT' => [
 

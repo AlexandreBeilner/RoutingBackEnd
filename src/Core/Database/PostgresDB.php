@@ -71,14 +71,23 @@ class PostgresDB
         return $this->connection->lastInsertId();
     }
 
-    public function update($id, array $fields, array $values): void
+    public function update(array $fields, array $values, array $where): bool
     {
-        $fieldList = implode(', ', $fields);
-        $placeholders = implode(', ', array_fill(0, count($values), '?'));
+        $setClause = implode(' = ?, ', $fields) . ' = ?';
+        $query = "UPDATE " . $this->table . " SET {$setClause}";
 
-        $sql = "UPDATE " . $this->table . " SET ($fieldList) = ($placeholders) WHERE id = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute(array_merge($values, [$id]));
+        if (!empty($where)) {
+            $query .= " WHERE ";
+            $conditions = [];
+            foreach ($where as $item) {
+                $conditions[] = "{$item['column']} {$item['operator']} ?";
+            }
+            $query .= implode(' AND ', $conditions);
+        }
+
+        $stmt = $this->connection->prepare($query);
+        $params = array_merge($values, array_column($where, 'value'));
+        return $stmt->execute($params);
     }
 
     public function delete($where): bool
