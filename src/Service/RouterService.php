@@ -180,9 +180,22 @@ class RouterService
     public function setRunningStatus($data): bool
     {
         $route = $data['routeID'];
-        $driverID = $data['driverID'];
         $status = $data['status'];
-        return $this->relationshipRepository->setRunningStatus($route, $driverID, $status);
+
+        if (isset($data['driverID'])) {
+            $driverID = $data['driverID'];
+            $where = [
+                ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
+                ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $route]
+            ];
+            return $this->relationshipRepository->setRunningStatus($where, $status);
+        }
+        $riderID = $data['riderID'];
+        $where = [
+            ['column' => 'relationship.riderid', 'operator' => '=', 'value' => $riderID],
+            ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $route]
+        ];
+        return $this->relationshipRepository->setRunningStatus($where, $status);
     }
 
     public function getRunningStatus($data): bool | array

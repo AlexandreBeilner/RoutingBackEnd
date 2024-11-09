@@ -29,7 +29,8 @@ class RelationshipRepository extends AbstractRepository
 
         $where = [
             ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
-            ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeID]
+            ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeID],
+            ['column' => 'relationship.isrunning', 'operator' => '=', 'value' => 'true'],
         ];
 
         $join = [
@@ -39,14 +40,10 @@ class RelationshipRepository extends AbstractRepository
         return $this->db->select($columns, $where, $join);
     }
 
-    public function setRunningStatus($routeID, $driverID, $status): bool
+    public function setRunningStatus($where, $status): bool
     {
         $fields = ['isrunning'];
         $values = [$status];
-        $where = [
-            ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
-            ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeID]
-        ];
         return $this->db->update($fields, $values, $where);
     }
 
