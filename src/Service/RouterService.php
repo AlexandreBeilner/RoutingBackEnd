@@ -173,8 +173,8 @@ class RouterService
     {
         $driverID = $data['driverID'];
         $route = $data['routeID'];
-
-        return $this->relationshipRepository->getRelationshipsByRouteAndDriverID($driverID, $route);
+        $status = $data['status'] ?? 'any';
+        return $this->relationshipRepository->getRelationshipsByRouteAndDriverID($driverID, $route, $status);
     }
 
     public function setRunningStatus($data): bool

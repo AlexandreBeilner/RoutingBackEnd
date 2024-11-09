@@ -21,7 +21,7 @@ class RelationshipRepository extends AbstractRepository
         return $this->db->insert(['driverid' => $driverID, 'riderid' => $riderID, 'idroute' => $routeID, 'latitude' => $latitude, 'longitude' => $longitude]);
     }
 
-    public function getRelationshipsByRouteAndDriverID($driverID, $routeID): array
+    public function getRelationshipsByRouteAndDriverID($driverID, $routeID, $status): array
     {
         $columns = 'relationship.idrelationship, relationship.driverid, relationship.riderid, relationship.amount, relationship.idroute,
         relationship.latitude, relationship.longitude,
@@ -30,8 +30,10 @@ class RelationshipRepository extends AbstractRepository
         $where = [
             ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $driverID],
             ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeID],
-            ['column' => 'relationship.isrunning', 'operator' => '=', 'value' => 'true'],
         ];
+        if ($status !== 'any') {
+            $where[] = ['column' => 'relationship.isrunning', 'operator' => '=', 'value' => $status];
+        }
 
         $join = [
             ['type' => "JOIN", 'table' => 'users', 'V1' => 'relationship.riderid', 'operator' => '=', 'V2' => 'users.iduser']
