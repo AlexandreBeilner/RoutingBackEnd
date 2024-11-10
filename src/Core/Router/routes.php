@@ -29,6 +29,9 @@ return [
             ],
             'POST' => [
                 'createRelationshipAction'
+            ],
+            'DELETE' => [
+                'deleteRelationshipAction'
             ]
         ]
     ]

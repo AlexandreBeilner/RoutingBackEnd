@@ -53,4 +53,16 @@ class UsersService
         return $this->relationShipRepository->getRelationship($where);
     }
 
+    public function deleteRelationship($data): bool
+    {
+        $where = [];
+        if (isset($data['driverID'])) {
+            $where[] = ['column' => 'relationship.driverid', 'operator' => '=', 'value' => $data['driverID']];
+        } else if ($data['riderID']) {
+            $where[] = ['column' => 'relationship.riderid', 'operator' => '=', 'value' => $data['riderID']];
+        }
+        $where[] = ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $data['routeID']];
+        return $this->relationShipRepository->deleteRelationship($where);
+    }
+
 }

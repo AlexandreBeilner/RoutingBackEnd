@@ -33,4 +33,11 @@ class UserController extends AbstractController
         $userService = new UsersService();
         return ['status' => true, 'response' => $userService->getRelationships($data)];
     }
+
+    public function deleteRelationshipAction()
+    {
+        $data = $this->getData();
+        $userService = new UsersService();
+        return ['status' => true, 'response' => $userService->deleteRelationship($data)];
+    }
 }

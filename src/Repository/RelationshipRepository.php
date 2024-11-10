@@ -60,4 +60,9 @@ class RelationshipRepository extends AbstractRepository
         $columns = '*';
         return $this->db->select($columns, $where);
     }
+
+    public function deleteRelationship($where): bool
+    {
+        return $this->db->delete($where);
+    }
 }
