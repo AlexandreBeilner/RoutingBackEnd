@@ -164,6 +164,8 @@ class RouterService
     public function deleteRoute($data): bool
     {
         $routeId = $data['routeID'];
+        $where[] = ['column' => 'relationship.idroute', 'operator' => '=', 'value' => $routeId];
+        $this->relationshipRepository->deleteRelationship($where);
         $respRoutePoints = $this->routePointsRepository->deletePoints($routeId);
         $respRoute = $this->routeRepository->deleteRoute($routeId);
         return $respRoute && $respRoutePoints;
